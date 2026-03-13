@@ -1,0 +1,1 @@
+{"version":2,"defects":{"App\\Tests\\CartAndCheckoutTest::testCartPageIsAccessible":7,"App\\Tests\\CartAndCheckoutTest::testCheckoutPageIsAccessible":7},"times":{"App\\Tests\\CartAndCheckoutTest::testCartPageIsAccessible":0.449,"App\\Tests\\CartAndCheckoutTest::testCheckoutRedirectsWhenCartIsEmpty":0.034,"App\\Tests\\CartAndCheckoutTest::testCheckoutPageIsAccessible":0.145}}

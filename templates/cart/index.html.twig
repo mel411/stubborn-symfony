@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+    <style>
+        .cart-page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cart-list {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            border: 1px solid #999;
+            background: #f3f3f3;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+        }
+
+        .cart-item-row {
+            display: grid;
+            grid-template-columns: 160px 1fr 220px;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .cart-image-box {
+            width: 120px;
+            height: 120px;
+            border: 1px solid #999;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .cart-info {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            gap: 30px;
+            align-items: start;
+        }
+
+        .cart-label {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .cart-value {
+            font-size: 22px;
+            font-weight: normal;
+        }
+
+        .cart-action {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .cart-btn {
+            display: inline-block;
+            min-width: 190px;
+            text-align: center;
+            padding: 12px 18px;
+            border: 1px solid #666;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #111;
+            background: #f8f8f8;
+        }
+
+        .cart-bottom {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .cart-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-end;
+            min-width: 390px;
+        }
+
+        .cart-total-line {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .cart-total-box {
+            border: 1px solid #666;
+            background: #f8f8f8;
+            padding: 12px 18px;
+            min-width: 170px;
+            text-align: center;
+        }
+
+        .cart-checkout-row {
+            display: flex;
+            gap: 12px;
+            align items: center;
+            justify-content: flex-end;
+        }
+
+        .cart-btn-danger {
+            background: #f4d7d7;
+        }
+
+        .cart-btn-success {
+            background: #dcefd7;
+        }
+
+        .cart-empty {
+            border: 1px solid #999;
+            padding: 20px;
+            background: #f3f3f3;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .cart-item-row {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-info {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .cart-action {
+                justify-content: flex-start;
+            }
+
+            .cart-bottom {
+                justify-content: flex-start;
+            }
+
+            .cart-summary {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .cart-total-line {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+
+    <div class="cart-page">
+        {% if cartItems is empty %}
+            <div class="cart-empty">
+                <p>Votre panier est vide.</p>
+                <a class="cart-btn cart-btn-success" style="width:190px" href="{{ path('app_products') }}">CONTINUER MES ACHATS</a>
+            </div>
+        {% else %}
+            <div class="cart-list">
+                {% for item in cartItems %}
+                    <div class="cart-item">
+                        <div class="cart-item-row">
+                            <div class="cart-image-box">
+                                <img src="{{ asset('images/' ~ item.product.image) }}" alt="{{ item.product.name }}">
+                            </div>
+
+                            <div class="cart-info">
+                                <div>
+                                    <div class="cart-label">Nom</div>
+                                    <div class="cart-value">{{ item.product.name }}</div>
+                                </div>
+
+                                <div>
+                                    <div class="cart-label">Prix</div>
+                                    <div class="cart-value">{{ item.product.price }} €</div>
+                                </div>
+
+                                <div>
+                                    <div class="cart-label">Taille</div>
+                                    <div class="cart-value">{{ item.size }}</div>
+                                </div>
+                            </div>
+
+                            <div class="cart-action">
+                                <a class="cart-btn" href="{{ path('app_cart_remove', {index: loop.index0}) }}">
+                                    RETIRER DU PANIER
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="cart-bottom">
+
+                <div class="cart-summary">
+
+                    <div class="cart-checkout-row">
+                        <div class="cart-total-box">
+                            TOTAL : {{ total }} €
+                        </div>
+
+                        <a class="cart-btn cart-btn-danger" style="width: 310px" href="{{ path('app_cart_checkout') }}">
+                            FINALISER MA COMMANDE
+                        </a>
+                    </div>
+
+                    <a class="cart-btn cart-btn-success" style="width: 310px" href="{{ path('app_products') }}">
+                        CONTINUER MES ACHATS
+                    </a>
+
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block body %}
+    <div class="auth-page">
+        <div class="auth-card" style="max-width: 360px;">
+            <h1 class="auth-title">S'inscrire</h1>
+            <hr class="auth-separator">
+
+            {{ form_start(registrationForm) }}
+
+                <label class="auth-label">Nom utilisateur :</label>
+                {{ form_widget(registrationForm.name, {'attr': {'class': 'auth-input'}}) }}
+
+                <label class="auth-label">Adresse mail :</label>
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'auth-input'}}) }}
+
+                <label class="auth-label">Adresse de livraison :</label>
+                {{ form_widget(registrationForm.deliveryAddress, {'attr': {'class': 'auth-input'}}) }}
+
+                <label class="auth-label">Mot de passe :</label>
+                {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'auth-input'}}) }}
+
+                <label class="auth-label">Confirmer le mot de passe :</label>
+                {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'auth-input'}}) }}
+
+                <div style="margin-bottom: 14px;">
+                    {{ form_row(registrationForm.agreeTerms) }}
+                </div>
+
+                <button type="submit" class="auth-button">Créer un compte</button>
+
+            {{ form_end(registrationForm) }}
+
+            <hr class="auth-separator">
+
+            <p class="auth-block-text">Déjà inscrit ?</p>
+            <a class="auth-button" href="{{ path('app_login') }}">Se Connecter</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Boutique{% endblock %}
+
+{% block body %}
+
+<style>
+    .shop-page {
+        max-width: 980px;
+        margin: 0 auto;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 270px);
+        gap: 50px 40px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .filter-card {
+        width: 160px;
+        border: 1px solid #999;
+        background: #f8f8f8;
+        align-self: start;
+        margin-top: 30px;
+        justify-self: center;
+    }
+
+    .price-filter-title {
+        padding: 10px;
+        border-bottom: 1px solid #999;
+        font-weight: bold;
+    }
+
+    .filter-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .filter-card li {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .filter-card li:last-child {
+        border-bottom: none;
+    }
+
+    .filter-card a {
+        display: block;
+        padding: 8px 10px;
+        text-decoration: none;
+        color: #111;
+    }
+
+    .filter-card a.active {
+        background: #dbe8f8;
+    }
+
+    .product-card {
+        border: 1px solid #999;
+        background: #f3f3f3;
+        padding: 14px;
+        width: 270px;
+        box-sizing: border-box;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 300px;
+        border: 1px solid #999;
+        overflow: hidden;
+        margin-bottom: 12px;
+        background: #fff;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .product-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+    }
+
+    .product-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 15px;
+    }
+
+    .product-btn {
+        border: 1px solid #666;
+        background: #f8f8f8;
+        padding: 9px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #000;
+        min-width: 72px;
+        text-align: center;
+    }
+
+    .empty-products {
+        border: 1px solid #999;
+        background: #f3f3f3;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        grid-column: span 3;
+    }
+
+    @media (max-width: 820px) {
+        .product-grid {
+            grid-template-columns: repeat(2, 240px);
+        }
+
+        .empty-products {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .product-grid {
+            grid-template-columns: 240px;
+        }
+
+        .empty-products {
+            grid-column: span 1;
+        }
+    }
+</style>
+
+<div class="shop-page">
+    <div class="product-grid">
+
+        <div class="filter-card">
+            <div class="price-filter-title">Fourchette de prix</div>
+            <ul>
+                <li>
+                    <a href="{{ path('app_products', {price: '10-29'}) }}"
+                       class="{{ selectedPrice == '10-29' ? 'active' : '' }}">
+                        10 à 29 €
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_products', {price: '30-35'}) }}"
+                       class="{{ selectedPrice == '30-35' ? 'active' : '' }}">
+                        30 à 35 €
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_products', {price: '35-50'}) }}"
+                       class="{{ selectedPrice == '35-50' ? 'active' : '' }}">
+                        35 à 50 €
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_products') }}"
+                       class="{{ selectedPrice is empty ? 'active' : '' }}">
+                        Tous les prix
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        {% if products is empty %}
+            <div class="empty-products">
+                Aucun produit dans cette fourchette de prix.
+            </div>
+        {% else %}
+            {% for product in products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product.name }}">
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-text">
+                            
+                            <span>{{ product.name }}</span>
+                            
+                            <span>{{ product.price }} €</span>
+                        </div>
+
+                        <a class="product-btn" href="{{ path('app_product_show', {id: product.id}) }}">
+                            VOIR
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

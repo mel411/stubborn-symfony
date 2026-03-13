@@ -1,0 +1,321 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Produits{% endblock %}
+
+{% block body %}
+    <style>
+        .admin-page-top {
+            position: relative;
+            margin-bottom: 30px;
+            min-height: 70px;
+        }
+
+        .admin-center-title {
+            width: 240px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #777;
+            background: #f8f8f8;
+            font-size: 34px;
+            padding: 10px 0;
+        }
+
+        .admin-section {
+            border: 1px solid #999;
+            background: #f3f3f3;
+            padding: 18px 20px;
+            margin-bottom: 24px;
+        }
+
+        .admin-section.add-box {
+            background: #f4d7d7;
+        }
+
+        .admin-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .admin-image-box {
+            width: 120px;
+            height: 120px;
+            border: 1px solid #aaa;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .admin-content {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .admin-fields {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(90px, 1fr));
+            gap: 14px;
+            align-items: end;
+        }
+
+        .admin-field-block {
+            min-width: 80px;
+        }
+
+        .admin-label {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .admin-value {
+            border: 1px solid #999;
+            background: #fff;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .admin-input {
+            width: 100%;
+            min-height: 38px;
+            border: 1px solid #999;
+            background: #fff;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .admin-featured-line {
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .admin-featured-line label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-right-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .admin-btn {
+            display: inline-block;
+            min-width: 130px;
+            text-align: center;
+            padding: 10px 18px;
+            border: 1px solid #666;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #111;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .admin-image-input-row {
+            margin-top: 12px;
+        }
+
+        .admin-image-input-row input {
+            width: 100%;
+            min-height: 38px;
+            border: 1px solid #999;
+            background: #fff;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1200px) {
+            .admin-row {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-fields {
+                grid-template-columns: repeat(3, minmax(90px, 1fr));
+            }
+
+            .admin-right-buttons {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .admin-fields {
+                grid-template-columns: repeat(2, minmax(90px, 1fr));
+            }
+        }
+    </style>
+
+    <div class="admin-page-top">
+        <div class="admin-center-title">Back-Office</div>
+    </div>
+
+    <div class="admin-section add-box">
+        {{ form_start(form) }}
+
+        <div class="admin-row">
+            <div>
+                <div class="admin-image-box"></div>
+
+                
+            </div>
+
+            <div class="admin-content">
+                <div class="admin-fields">
+                    <div class="admin-field-block">
+                        <div class="admin-label">Nom</div>
+                        {{ form_widget(form.name, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+
+                    <div class="admin-field-block">
+                        <div class="admin-label">Prix</div>
+                        {{ form_widget(form.price, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+
+                    <div class="admin-field-block">
+                        <div class="admin-label">Stock XS</div>
+                        {{ form_widget(form.stockXS, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+
+                    <div class="admin-field-block">
+                        <div class="admin-label">Stock S</div>
+                        {{ form_widget(form.stockS, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+
+                    <div class="admin-field-block">
+                        <div class="admin-label">Stock M</div>
+                        {{ form_widget(form.stockM, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+
+                    <div class="admin-field-block">
+                        <div class="admin-label">Stock L</div>
+                        {{ form_widget(form.stockL, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+
+                    <div class="admin-field-block">
+                        <div class="admin-label">Stock XL</div>
+                        {{ form_widget(form.stockXL, {'attr': {'class': 'admin-input'}}) }}
+                    </div>
+                </div>
+                
+                {{ form_widget(form.image, {'attr': {'style': 'display:none;'}}) }}
+                {{ form_widget(form.isFeatured, {'attr': {'style': 'display:none;'}}) }}
+                
+                <div class="admin-right-buttons">
+                    <button type="submit" class="admin-btn">AJOUTER</button>
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+    {% for product in products %}
+        <div class="admin-section">
+            <div class="admin-row">
+                <div class="admin-image-box">
+                    <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product.name }}">
+                </div>
+
+                <div class="admin-content">
+                    <div class="admin-fields">
+                        <div class="admin-field-block">
+                            <div class="admin-label">Nom</div>
+                            <div class="admin-value">{{ product.name }}</div>
+                        </div>
+
+                        <div class="admin-field-block">
+                            <div class="admin-label">Prix</div>
+                            <div class="admin-value">{{ product.price }} €</div>
+                        </div>
+
+                        <div class="admin-field-block">
+                            <div class="admin-label">Stock XS</div>
+                            <div class="admin-value">
+                                {% set qty = 0 %}
+                                {% for stock in product.stocks %}
+                                    {% if stock.size == 'XS' %}
+                                        {% set qty = stock.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ qty }}
+                            </div>
+                        </div>
+
+                        <div class="admin-field-block">
+                            <div class="admin-label">Stock S</div>
+                            <div class="admin-value">
+                                {% set qty = 0 %}
+                                {% for stock in product.stocks %}
+                                    {% if stock.size == 'S' %}
+                                        {% set qty = stock.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ qty }}
+                            </div>
+                        </div>
+
+                        <div class="admin-field-block">
+                            <div class="admin-label">Stock M</div>
+                            <div class="admin-value">
+                                {% set qty = 0 %}
+                                {% for stock in product.stocks %}
+                                    {% if stock.size == 'M' %}
+                                        {% set qty = stock.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ qty }}
+                            </div>
+                        </div>
+
+                        <div class="admin-field-block">
+                            <div class="admin-label">Stock L</div>
+                            <div class="admin-value">
+                                {% set qty = 0 %}
+                                {% for stock in product.stocks %}
+                                    {% if stock.size == 'L' %}
+                                        {% set qty = stock.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ qty }}
+                            </div>
+                        </div>
+
+                        <div class="admin-field-block">
+                            <div class="admin-label">Stock XL</div>
+                            <div class="admin-value">
+                                {% set qty = 0 %}
+                                {% for stock in product.stocks %}
+                                    {% if stock.size == 'XL' %}
+                                        {% set qty = stock.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ qty }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-right-buttons">
+                        <a class="admin-btn" href="{{ path('app_admin_products_delete', {id: product.id}) }}">SUPPRIMER</a>
+                        <a class="admin-btn" href="{{ path('app_admin_products_edit', {id: product.id}) }}">MODIFIER</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

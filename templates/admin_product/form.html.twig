@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <style>
+        .admin-form-title {
+            font-size: 36px;
+            margin-bottom: 24px;
+        }
+
+        .admin-form-box {
+            max-width: 800px;
+            border: 1px solid #999;
+            padding: 24px;
+            background: #f3f3f3;
+        }
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 24px;
+        }
+
+        .admin-form-actions {
+            margin-top: 24px;
+        }
+
+        .admin-form-actions button,
+        .admin-back-link {
+            display: inline-block;
+            padding: 10px 18px;
+            border: 1px solid #666;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #111;
+            background: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .admin-back-link {
+            margin-left: 10px;
+        }
+    </style>
+
+    <h1 class="admin-form-title">{{ title }}</h1>
+
+    <div class="admin-form-box">
+        {{ form_start(form) }}
+
+            <div class="admin-form-grid">
+                {{ form_row(form.name) }}
+                {{ form_row(form.price) }}
+
+                {{ form_row(form.image) }}
+                {{ form_row(form.isFeatured) }}
+
+                {{ form_row(form.stockXS) }}
+                {{ form_row(form.stockS) }}
+
+                {{ form_row(form.stockM) }}
+                {{ form_row(form.stockL) }}
+
+                {{ form_row(form.stockXL) }}
+            </div>
+
+            <div class="admin-form-actions">
+                <button type="submit">Enregistrer</button>
+                <a class="admin-back-link" href="{{ path('app_admin_products') }}">Retour à la liste</a>
+            </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
